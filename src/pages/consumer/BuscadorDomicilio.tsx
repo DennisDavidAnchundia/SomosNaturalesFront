@@ -4,9 +4,7 @@ import Swal from 'sweetalert2';
 
 // DICCIONARIO MASIVO DE MANTA (Barrios, Parroquias y Zonas)
 const SECTORES_MANTA = [
-    // Parroquias Urbanas
     'tarqui', 'los esteros', 'manta', 'eloy alfaro', 'san mateo',
-    // Barrios y Sectores Concurridos
     'barbasquillo', 'el murcielago', 'la pradera', 'jocay', 'altamira', 
     'el palmar', 'las acacias', 'la aurora', 'la florita', 'san jose',
     'san juan', 'santa martha', 'miraflores', 'la revocacion', 'el porvenir',
@@ -38,7 +36,6 @@ export const SelectorServicio = () => {
             });
         }
 
-        // Validación inteligente: Busca si alguna palabra del diccionario está en lo escrito
         const perteneceAManta = SECTORES_MANTA.some(sector => busqueda.includes(sector));
 
         if (perteneceAManta) {

@@ -49,7 +49,7 @@ export const GoogleLogin = () => {
             { 
                 theme: "outline", 
                 size: "large",
-                width: "100%", // Ocupará el ancho del contenedor
+                width: "100%", 
                 text: "continue_with",
                 shape: "pill"
             } 

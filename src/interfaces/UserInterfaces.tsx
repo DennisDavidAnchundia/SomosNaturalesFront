@@ -5,7 +5,7 @@ export interface Usuario {
     nombre: string;
     correo: string;
     password: string;
-    rol: 'ADMIN_ROLE' | 'WORKER_ROLE' | 'CONSUMER_ROLE'; // Exactamente como en tu backend
+    rol: 'ADMIN_ROLE' | 'WORKER_ROLE' | 'CONSUMER_ROLE'; 
     estado?: boolean;
 }
 

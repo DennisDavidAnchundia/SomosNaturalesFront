@@ -47,7 +47,6 @@ const onSubmit = async (e: React.FormEvent) => {
 };
 
     return (
-        // Ajustamos el contenedor: py-6 en móvil para que no choque con el bottom
         <div className="max-w-xl mx-auto px-4 py-6 md:py-12">
             
             <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-2xl shadow-gray-200 overflow-hidden border border-gray-100">
@@ -140,7 +139,6 @@ const onSubmit = async (e: React.FormEvent) => {
                 </form>
             </div>
             
-            {/* Espaciador extra para asegurar que en móvil se pueda hacer scroll hasta el final */}
             <div className="h-20 md:hidden"></div>
         </div>
     );

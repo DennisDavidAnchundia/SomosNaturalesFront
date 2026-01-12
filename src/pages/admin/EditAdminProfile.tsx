@@ -18,10 +18,8 @@ export const AdminProfile = () => {
 const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Creamos una copia de los datos para limpiar
     const datosAEnviar: any = { ...formData };
 
-    // Si el password está vacío, lo eliminamos del objeto para que el backend no lo toque
     if (!datosAEnviar.password || datosAEnviar.password.trim() === '') {
         delete datosAEnviar.password;
     }

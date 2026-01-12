@@ -2,16 +2,13 @@ import { createContext, useEffect, useState, type ReactNode } from 'react';
 import type { AuthContextType, Usuario } from '../interfaces/UserInterfaces';
 import SomosNaturales from '../api/somosNaturalesApi';
 
-// 1. Creamos el contexto con el tipo definido en tus interfaces
 export const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
-// 2. Definimos el Proveedor
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     
     const [status, setStatus] = useState<'checking' | 'authenticated' | 'not-authenticated'>('checking');
     const [usuario, setUsuario] = useState<Usuario | null>(null);
 
-    // Lógica para persistir la sesión al recargar (Backend /renew)
     const checkAuthToken = async () => {
         const token = localStorage.getItem('x-token');
 

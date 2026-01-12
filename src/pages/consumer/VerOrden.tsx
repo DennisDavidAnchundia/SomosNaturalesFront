@@ -9,7 +9,6 @@ export const MisPedidos = () => {
 
     const cargarPedidos = async () => {
         try {
-            // Usamos tu api configurada
             const { data } = await SomosNaturales.get('/orden/mis-pedidos');
             setPedidos(data.ordenes);
         } catch (error) {
@@ -21,12 +20,10 @@ export const MisPedidos = () => {
 
     useEffect(() => {
         cargarPedidos();
-        // Polling cada 30 segundos para actualizar el estado sin recargar
         const interval = setInterval(cargarPedidos, 30000);
         return () => clearInterval(interval);
     }, []);
 
-    // Función para definir el color del badge según el estado
     const getStatusColor = (status: string) => {
         switch (status) {
             case 'PENDIENTE': return 'bg-yellow-100 text-yellow-700 border-yellow-200';
@@ -46,7 +43,7 @@ export const MisPedidos = () => {
     return (
         <div className="min-h-screen bg-gray-50 pb-20 pt-10 px-4">
             <div className="max-w-4xl mx-auto">
-                
+
                 {/* Header de la sección */}
                 <div className="flex items-center gap-4 mb-10">
                     <div className="bg-red-600 p-3 rounded-2xl shadow-lg shadow-red-200 text-white">
@@ -73,45 +70,45 @@ export const MisPedidos = () => {
                         {pedidos.map(pedido => (
                             <div key={pedido._id} className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden transform transition-all hover:scale-[1.01]">
                                 {pedido.estado === 'ENTREGADO' && (
-<div className="mt-8">
-    {/* Título de la sección con estilo de marca */}
-    <h3 className="text-xl font-black text-gray-800 uppercase italic tracking-tighter mb-6 flex items-center gap-2">
-        <span className="bg-orange-500 w-2 h-6 rounded-full"></span>
-        ¿Qué te pareció tu comida?
-    </h3>
+                                    <div className="mt-8">
+                                        {/* Título de la sección con estilo de marca */}
+                                        <h3 className="text-xl font-black text-gray-800 uppercase italic tracking-tighter mb-6 flex items-center gap-2">
+                                            <span className="bg-orange-500 w-2 h-6 rounded-full"></span>
+                                            ¿Qué te pareció tu comida?
+                                        </h3>
 
-    <div className="grid gap-4">
-        {pedido.productos.map(item => (
-            <div 
-                key={item.producto._id} 
-                className="group flex flex-col md:flex-row md:items-center justify-between p-5 bg-white rounded-[2rem] border-2 border-gray-50 shadow-sm hover:shadow-md hover:border-orange-100 transition-all duration-300"
-            >
-                {/* Nombre del Producto con estilo fuerte */}
-                <div className="flex flex-col">
-                    <span className="text-[10px] font-black text-orange-500 uppercase tracking-widest mb-1 italic">
-                        Producto para evaluar:
-                    </span>
-                    <span className="text-lg font-black text-gray-800 uppercase italic tracking-tighter group-hover:text-orange-600 transition-colors">
-                        {item.producto.nombre}
-                    </span>
-                </div>
+                                        <div className="grid gap-4">
+                                            {pedido.productos.map(item => (
+                                                <div
+                                                    key={item.producto._id}
+                                                    className="group flex flex-col md:flex-row md:items-center justify-between p-5 bg-white rounded-[2rem] border-2 border-gray-50 shadow-sm hover:shadow-md hover:border-orange-100 transition-all duration-300"
+                                                >
+                                                    {/* Nombre del Producto con estilo fuerte */}
+                                                    <div className="flex flex-col">
+                                                        <span className="text-[10px] font-black text-orange-500 uppercase tracking-widest mb-1 italic">
+                                                            Producto para evaluar:
+                                                        </span>
+                                                        <span className="text-lg font-black text-gray-800 uppercase italic tracking-tighter group-hover:text-orange-600 transition-colors">
+                                                            {item.producto.nombre}
+                                                        </span>
+                                                    </div>
 
-                {/* Separador visual para móvil */}
-                <div className="h-px w-full bg-gray-100 my-3 md:hidden"></div>
+                                                    {/* Separador visual para móvil */}
+                                                    <div className="h-px w-full bg-gray-100 my-3 md:hidden"></div>
 
-                {/* Input de Estrellas */}
-                <div className="bg-gray-50 px-4 py-2 rounded-2xl border border-gray-100 group-hover:bg-orange-50 transition-colors">
-                    <RatingInput producto={item.producto} />
-                </div>
-            </div>
-        ))}
-    </div>
-</div>
-    )}
+                                                    {/* Input de Estrellas */}
+                                                    <div className="bg-gray-50 px-4 py-2 rounded-2xl border border-gray-100 group-hover:bg-orange-50 transition-colors">
+                                                        <RatingInput producto={item.producto} />
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                                 {/* Header del Pedido */}
                                 <div className="p-6 border-b border-gray-50 flex flex-wrap justify-between items-center gap-4">
                                     <div className="flex items-center gap-3">
-                                        <div className="text-gray-400"><IoTimeOutline size={20}/></div>
+                                        <div className="text-gray-400"><IoTimeOutline size={20} /></div>
                                         <span className="font-black text-gray-800 text-sm uppercase">
                                             {new Date(pedido.createdAt).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' })}
                                         </span>
@@ -129,7 +126,7 @@ export const MisPedidos = () => {
                                             {pedido.productos.map((item: any, index: number) => (
                                                 <div key={index} className="flex justify-between items-center bg-gray-50 p-3 rounded-2xl">
                                                     <span className="text-sm font-bold text-gray-700">
-                                                        <span className="text-red-600 font-black mr-2">{item.cantidad}x</span> 
+                                                        <span className="text-red-600 font-black mr-2">{item.cantidad}x</span>
                                                         {item.producto.nombre}
                                                     </span>
                                                     <span className="text-sm font-black text-gray-800">${(item.precio * item.cantidad).toFixed(2)}</span>
@@ -154,26 +151,26 @@ export const MisPedidos = () => {
                                         <div className="flex justify-between relative">
                                             {/* Línea de fondo */}
                                             <div className="absolute top-5 left-0 w-full h-1 bg-gray-100 -z-0"></div>
-                                            
-                                            <StepItem 
-                                                icon={<IoReceiptOutline />} 
-                                                label="Recibido" 
-                                                active={['PENDIENTE', 'EN_PREPARACION', 'LISTO', 'ENTREGADO'].includes(pedido.estado)} 
+
+                                            <StepItem
+                                                icon={<IoReceiptOutline />}
+                                                label="Recibido"
+                                                active={['PENDIENTE', 'EN_PREPARACION', 'LISTO', 'ENTREGADO'].includes(pedido.estado)}
                                             />
-                                            <StepItem 
-                                                icon={<IoFastFoodOutline />} 
-                                                label="En Cocina" 
-                                                active={['EN_PREPARACION', 'LISTO', 'ENTREGADO'].includes(pedido.estado)} 
+                                            <StepItem
+                                                icon={<IoFastFoodOutline />}
+                                                label="En Cocina"
+                                                active={['EN_PREPARACION', 'LISTO', 'ENTREGADO'].includes(pedido.estado)}
                                             />
-                                            <StepItem 
-                                                icon={<IoCheckmarkCircle />} 
-                                                label="¡Listo!" 
-                                                active={['LISTO', 'ENTREGADO'].includes(pedido.estado)} 
+                                            <StepItem
+                                                icon={<IoCheckmarkCircle />}
+                                                label="¡Listo!"
+                                                active={['LISTO', 'ENTREGADO'].includes(pedido.estado)}
                                             />
-                                            <StepItem 
-                                                icon={<IoBicycleOutline />} 
-                                                label="Entregado" 
-                                                active={['ENTREGADO'].includes(pedido.estado)} 
+                                            <StepItem
+                                                icon={<IoBicycleOutline />}
+                                                label="Entregado"
+                                                active={['ENTREGADO'].includes(pedido.estado)}
                                             />
                                         </div>
                                     </div>

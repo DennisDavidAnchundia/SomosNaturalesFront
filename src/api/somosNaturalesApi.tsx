@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const SomosNaturales = axios.create({
-    baseURL: 'http://localhost:8080/api' // Cambia por tu URL de Node
+    baseURL: 'http://localhost:8080/api' 
 });
 
-// Interceptor para añadir el token (el que tu middleware validar-JWT.js leerá)
+// Interceptor para añadir el token
 SomosNaturales.interceptors.request.use( config => {
     const token = localStorage.getItem('x-token');
     if ( token ) {

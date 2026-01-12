@@ -7,7 +7,7 @@ import { CatalogoPublico } from './TraerProdcutosPublic';
 import { SelectorServicio } from './consumer/BuscadorDomicilio';
 
 export const HomePage = () => {
-    const [productos, setProductos] = useState<any[]>([]); // Aquí irían tus datos
+    const [productos, setProductos] = useState<any[]>([]); 
     const navigate = useNavigate();
 
     return (

@@ -22,7 +22,6 @@ export const CatalogoPage = () => {
         cargarProductos();
     }, []);
 
-    // --- PANTALLA DE CARGA COHERENTE ---
     if (loading) {
         return (
             <div className="min-h-screen w-full flex flex-col items-center justify-center bg-gray-50">
@@ -57,43 +56,43 @@ export const CatalogoPage = () => {
                 {/* Grid Responsivo */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                     {productos.map((prod) => (
-                        <div 
-                            className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 overflow-hidden group hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100" 
+                        <div
+                            className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 overflow-hidden group hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 border border-gray-100"
                             key={prod._id}
                         >
                             {/* Imagen con Badge */}
                             <div className="relative h-64 overflow-hidden">
-                                <img 
-                                    src={prod.imagen} 
-                                    alt={prod.nombre} 
+                                <img
+                                    src={prod.imagen}
+                                    alt={prod.nombre}
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                 />
                                 <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/60 to-transparent"></div>
                             </div>
-<div className="product-stats mt-2 flex items-center gap-3">
-    {/* Badge Principal de Rating */}
-    <div className={`
+                            <div className="product-stats mt-2 flex items-center gap-3">
+                                {/* Badge Principal de Rating */}
+                                <div className={`
         flex items-center gap-1 px-3 py-1 rounded-full shadow-sm border
-        ${prod.ratingPromedio > 0 
-            ? 'bg-yellow-50 border-yellow-200 shadow-yellow-100/50' 
-            : 'bg-orange-50 border-orange-100 shadow-orange-100/50'}
+        ${prod.ratingPromedio > 0
+                                        ? 'bg-yellow-50 border-yellow-200 shadow-yellow-100/50'
+                                        : 'bg-orange-50 border-orange-100 shadow-orange-100/50'}
     `}>
-        <span className={`${prod.ratingPromedio > 0 ? 'text-yellow-500' : 'text-orange-400'} animate-pulse`}>
-            ⭐
-        </span>
-        <span className="text-[11px] font-black text-gray-800 uppercase italic tracking-tighter">
-            {prod.ratingPromedio > 0 ? `${prod.ratingPromedio.toFixed(1)}` : 'NUEVO'}
-        </span>
-    </div>
+                                    <span className={`${prod.ratingPromedio > 0 ? 'text-yellow-500' : 'text-orange-400'} animate-pulse`}>
+                                        ⭐
+                                    </span>
+                                    <span className="text-[11px] font-black text-gray-800 uppercase italic tracking-tighter">
+                                        {prod.ratingPromedio > 0 ? `${prod.ratingPromedio.toFixed(1)}` : 'NUEVO'}
+                                    </span>
+                                </div>
 
-    {/* Contador de Reviews con estilo minimalista */}
-    <div className="flex items-center gap-1 group cursor-help">
-        <span className="text-[10px] font-bold text-gray-400 uppercase italic tracking-widest group-hover:text-orange-500 transition-colors">
-            {prod.numRevisiones} 
-            <span className="ml-1 text-[8px] opacity-70">REVIEWS</span>
-        </span>
-    </div>
-</div>
+                                {/* Contador de Reviews con estilo minimalista */}
+                                <div className="flex items-center gap-1 group cursor-help">
+                                    <span className="text-[10px] font-bold text-gray-400 uppercase italic tracking-widest group-hover:text-orange-500 transition-colors">
+                                        {prod.numRevisiones}
+                                        <span className="ml-1 text-[8px] opacity-70">REVIEWS</span>
+                                    </span>
+                                </div>
+                            </div>
                             {/* Info del Producto */}
                             <div className="p-6">
                                 <h3 className="text-xl font-black text-gray-800 uppercase tracking-tight mb-2 truncate">
@@ -102,7 +101,7 @@ export const CatalogoPage = () => {
                                 <p className="text-gray-500 text-sm font-medium line-clamp-2 h-10 mb-4 leading-relaxed">
                                     {prod.descripcion}
                                 </p>
-                                
+
                                 <div className="flex items-center justify-between mt-4">
                                     <div className="flex flex-col">
                                         <span className="text-[10px] font-black text-gray-400 uppercase">Precio</span>
@@ -111,12 +110,12 @@ export const CatalogoPage = () => {
                                         </span>
                                     </div>
 
-                                    <button 
+                                    <button
                                         className="bg-red-600 hover:bg-red-700 text-white p-4 rounded-2xl shadow-lg shadow-red-200 active:scale-90 transition-all flex items-center justify-center group"
                                         onClick={() => addToCart(prod)}
                                         title="Agregar al carrito"
                                     >
-                                        <IoCartOutline className="text-2xl group-hover:animate-bounce" /> 
+                                        <IoCartOutline className="text-2xl group-hover:animate-bounce" />
                                         <span className="ml-2 font-black uppercase text-xs">Añadir</span>
                                     </button>
                                 </div>

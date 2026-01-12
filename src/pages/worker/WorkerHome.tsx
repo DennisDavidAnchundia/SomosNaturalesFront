@@ -169,5 +169,4 @@ export const WorkerPanel = () => {
     );
 };
 
-// Necesitaremos este icono también
 import { IoBicycleOutline } from "react-icons/io5";

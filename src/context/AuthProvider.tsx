@@ -9,7 +9,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [status, setStatus] = useState<'checking' | 'authenticated' | 'not-authenticated'>('checking');
     const [usuario, setUsuario] = useState<Usuario | null>(null);
 
-    // Efecto para persistir la sesión
     useEffect(() => {
         checkAuthToken();
     }, []);
@@ -17,12 +16,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const checkAuthToken = async () => {
         const token = localStorage.getItem('x-token');
 
-        // Si no hay token, no está autenticado
         if (!token) return setStatus('not-authenticated');
 
         try {
-            // Llamada a tu backend para validar el token y obtener datos del usuario
-            // Tu backend debe devolver el { usuario, token } nuevo
             const { data } = await SomosNaturales.get('/auth/renew'); 
             
             const { usuario, token: newToken } = data;
@@ -30,7 +26,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             setUsuario(usuario);
             setStatus('authenticated');
         } catch (error) {
-            // Si el token expiró o no es válido (validar-JWT devolvió error)
             localStorage.removeItem('x-token');
             setStatus('not-authenticated');
         }

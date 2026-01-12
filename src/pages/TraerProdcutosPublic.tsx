@@ -12,7 +12,6 @@ export const CatalogoPublico = () => {
     useEffect(() => {
         const cargarProductos = async () => {
             try {
-                // Usamos la ruta específica que solicitaste
                 const { data } = await SomosNaturales.get('/producto/TraerProductosHomePublic');
                 setProductos(data.productos);
             } catch (error) {

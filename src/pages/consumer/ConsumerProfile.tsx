@@ -26,7 +26,7 @@ export const CustomerProfile = () => {
                 title: '¡Ajustes Guardados!',
                 text: 'Tu perfil ha sido actualizado con éxito',
                 icon: 'success',
-                confirmButtonColor: '#10b981', // Verde Esmeralda
+                confirmButtonColor: '#10b981',
                 customClass: {
                     popup: 'rounded-[2.5rem]',
                     confirmButton: 'rounded-full px-8 py-3 font-black uppercase italic text-xs'

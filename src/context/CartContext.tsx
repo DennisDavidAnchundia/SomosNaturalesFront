@@ -23,15 +23,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         const savedCart = localStorage.getItem('cart-natural');
         return savedCart ? JSON.parse(savedCart) : [];
     });
-    // 2. Persistencia automática: Cada vez que el 'cart' cambie, guardamos en localStorage
     useEffect(() => {
         localStorage.setItem('cart-natural', JSON.stringify(cart));
     }, [cart]);
 
     const addToCart = (producto: any) => {
-        // --- LÓGICA DEL SONIDO ---
         const audio = new Audio('/sounds/sound.mp3');
-        audio.volume = 0.1; // Ajusta el volumen al 50%
+        audio.volume = 0.1; 
         audio.play().catch(err => console.log("Error al reproducir sonido:", err));
         setCart(prevCart => {
             const existe = prevCart.find(item => item._id === producto._id);

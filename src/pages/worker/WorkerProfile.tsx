@@ -27,7 +27,7 @@ export const WorkerProfile = () => {
                 title: 'Perfil Actualizado',
                 text: 'Tus credenciales de staff han sido sincronizadas',
                 icon: 'success',
-                confirmButtonColor: '#3b82f6', // Azul profesional
+                confirmButtonColor: '#3b82f6', 
                 customClass: { popup: 'rounded-[2rem]' }
             });
         } catch (error) {

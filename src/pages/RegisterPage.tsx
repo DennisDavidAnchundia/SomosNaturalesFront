@@ -33,7 +33,6 @@ export const RegisterPage = () => {
             const { usuario, token } = resp.data;
 
             login(usuario, token);
-            // Redirigimos a home directamente si ya lo logueamos, o a login
             navigate('/login');
 
         } catch (error: any) {
