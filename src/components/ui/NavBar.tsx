@@ -16,7 +16,7 @@ import {
     IoReceiptOutline
 } from "react-icons/io5";
 
-const NavItem = ({ to, icon, label, onClick, badge, animate }:any) => {
+const NavItem = ({ to, icon, label, onClick, badge, animate }) => {
     // Clases actualizadas para resaltar sobre el fondo naranja
     const activeClass = "text-white scale-110 font-bold border-b-2 border-white pb-1";
     const inactiveClass = "text-orange-100 hover:text-white transition-all duration-300";
@@ -185,7 +185,7 @@ export const Navbar = () => {
                                 <NavItem to="/crearworker" icon={<IoStatsChartOutline />} label="Crear Trabajador" />
                                 <NavItem to="/adminmanage" icon={<IoStatsChartOutline />} label="Administracion" />
                                 <NavItem to="/adminprofile" icon={<IoStatsChartOutline />} label="Perfil" />
-                                <NavItem icon={<IoLogOutOutline />} label="Salir" onClick={() => { logout(); navigate('/login'); }} />
+                                <NavItem badge={0} to={""} animate={false} icon={<IoLogOutOutline />} label="Salir" to: ''onClick={() => { logout(); navigate('/login'); }} />
                             </>
                         )}
                     </>
