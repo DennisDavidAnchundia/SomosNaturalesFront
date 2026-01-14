@@ -24,12 +24,12 @@ const NavItem = ({
     badge = 0,
     animate = false
 }: {
-    to?: any,
-    icon?: any,
-    label?: any,
-    onClick?: any,
-    badge?: any,
-    animate?: any
+    to?: string,
+    icon: React.ReactNode,
+    label: string,
+    onClick?: () => void,
+    badge?: number,
+    animate?: boolean
 }) => {
     // Clases actualizadas para resaltar sobre el fondo naranja
     const activeClass = "text-white scale-110 font-bold border-b-2 border-white pb-1";
