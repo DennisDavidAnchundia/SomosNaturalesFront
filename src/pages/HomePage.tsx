@@ -16,7 +16,7 @@ export const HomePage = () => {
             <div className="relative w-full h-[300px] md:h-[450px] overflow-hidden">
                 <img 
                     className="w-full h-full object-cover object-center" 
-                    src="https://t3.ftcdn.net/jpg/02/87/76/00/360_F_287760066_COBeYwfeWuKtWnM9lm7cDCQESYQIoaNr.webp" 
+                    src="/logo.png" 
                     alt="Promo" 
                 />
                 {/* Overlay degradado para que el texto resalte */}

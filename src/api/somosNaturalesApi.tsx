@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const SomosNaturales = axios.create({
-    baseURL: 'http://localhost:8080/api' 
+    baseURL: 'https://somosnaturalesback.onrender.com/api' 
 });
 
 // Interceptor para añadir el token
