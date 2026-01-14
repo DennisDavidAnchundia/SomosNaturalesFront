@@ -16,7 +16,7 @@ import {
     IoReceiptOutline
 } from "react-icons/io5";
 
-const NavItem = ({ to, icon, label, onClick, badge, animate }) => {
+const NavItem = ({ to, icon, label, onClick, badge, animate }:any) => {
     // Clases actualizadas para resaltar sobre el fondo naranja
     const activeClass = "text-white scale-110 font-bold border-b-2 border-white pb-1";
     const inactiveClass = "text-orange-100 hover:text-white transition-all duration-300";
