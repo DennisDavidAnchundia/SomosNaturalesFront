@@ -15,14 +15,25 @@ import {
     IoAddCircleOutline,
     IoReceiptOutline
 } from "react-icons/io5";
+
+// 1. Definimos una interfaz para que TS sepa qué es opcional
+interface NavItemProps {
+    to?: string;
+    icon: React.ReactNode;
+    label: string;
+    onClick?: () => void;
+    badge?: number;
+    animate?: boolean;
+}
+
 const NavItem = ({ 
     to = "", 
     icon, 
     label, 
-    onClick = () => {}, 
+    onClick, // Quitamos el valor por defecto aquí para poder validar si existe
     badge = 0, 
     animate = false 
-}: any) => {
+}: NavItemProps) => {
     const activeClass = "text-white scale-110 font-bold border-b-2 border-white pb-1";
     const inactiveClass = "text-orange-100 hover:text-white transition-all duration-300";
 
@@ -42,14 +53,16 @@ const NavItem = ({
         </div>
     );
 
-    if (onClick) {
+    // Si hay un onClick y NO hay un "to", renderizamos botón
+    if (onClick && !to) {
         return (
-            <button onClick={onClick} className={inactiveClass}>
+            <button type="button" onClick={onClick} className={inactiveClass}>
                 {content}
             </button>
         );
     }
 
+    // De lo contrario, renderizamos el link
     return (
         <NavLink to={to} className={({ isActive }) => isActive ? activeClass : inactiveClass}>
             {content}
@@ -73,27 +86,21 @@ export const Navbar = () => {
 
     return (
         <>
-            {/* --- NAVBAR SUPERIOR (Escritorio) --- */}
             <nav className="fixed top-0 w-full z-50 bg-orange-500 h-20 flex items-center shadow-[0_4px_20px_rgba(0,0,0,0.1)] px-4 transition-all border-b border-orange-600/20">
                 <div className="container mx-auto flex justify-between items-center">
 
-                    {/* LOGO PNG CONFIGURADO */}
-                    <div
-                        className="flex items-center cursor-pointer group"
-                        onClick={() => navigate('/')}
-                    >
+                    <div className="flex items-center cursor-pointer group" onClick={() => navigate('/')}>
                         <img
-                            src="/logo.png" // Asegúrate de que el nombre sea exacto en tu carpeta public
-                            alt="Somos Naturales Logo"
+                            src="/logo.png"
+                            alt="Logo"
                             className="h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-md"
                         />
                     </div>
 
-                    {/* MENÚ PARA PC */}
                     <div className="hidden md:flex items-center gap-6">
                         {status !== 'authenticated' ? (
                             <>
-                                <NavItem to="/" animate={false} icon={<IoHomeOutline />} label="Inicio" />
+                                <NavItem to="/" icon={<IoHomeOutline />} label="Inicio" />
                                 <NavItem to="/login" icon={<IoLogInOutline />} label="Ingresar" />
                                 <NavLink to="/register" className="bg-white text-orange-500 px-6 py-2 rounded-full font-black hover:bg-orange-50 transition-all text-xs uppercase shadow-sm">
                                     Registrarse
@@ -107,14 +114,13 @@ export const Navbar = () => {
                                         <NavItem to="/crearworker" icon={<IoStatsChartOutline />} label="Crear Trabajador" />
                                         <NavItem to="/adminmanage" icon={<IoStatsChartOutline />} label="Administracion" />
                                         <NavItem to="/adminprofile" icon={<IoStatsChartOutline />} label="Perfil" />
-
                                     </>
                                 )}
 
                                 {usuario?.rol === 'WORKER_ROLE' && (
                                     <>
                                         <NavItem to="/worker" icon={<IoClipboardOutline />} label="Comandas" />
-                                        <NavItem to="/addproducts" icon={<IoAddCircleOutline />} label="Agregar producto" />
+                                        <NavItem to="/addproducts" icon={<IoAddCircleOutline />} label="Agregar" />
                                         <NavItem to="/profileworker" icon={<IoAddCircleOutline />} label="Perfil" />
                                     </>
                                 )}
@@ -147,7 +153,6 @@ export const Navbar = () => {
                 </div>
             </nav>
 
-            {/* --- NAVBAR INFERIOR (Móvil) --- */}
             <div className="md:hidden fixed bottom-0 left-0 right-0 bg-orange-500 border-t border-orange-600 px-2 py-3 z-50 flex justify-around items-center shadow-[0_-5px_20px_rgba(0,0,0,0.1)] pb-5">
                 {status !== 'authenticated' ? (
                     <>
@@ -162,8 +167,6 @@ export const Navbar = () => {
                                 <NavItem to="/home" icon={<IoHomeOutline />} label="Inicio" />
                                 <NavItem to="/catalogo" icon={<IoFastFoodOutline />} label="Menú" />
                                 <NavItem to="/getproducts" icon={<IoReceiptOutline />} label="Pedidos" />
-                                <NavItem to="/profileconsumer" icon={<IoReceiptOutline />} label="Perfil" />
-
                                 <NavItem
                                     icon={<IoCartOutline />}
                                     label="Carrito"
@@ -174,32 +177,18 @@ export const Navbar = () => {
                             </>
                         )}
 
-                        {usuario?.rol === 'WORKER_ROLE' && (
-                            <>
-                                <NavItem to="/worker" icon={<IoClipboardOutline />} label="Pedidos" />
-                                <NavItem to="/addproducts" icon={<IoAddCircleOutline />} label="Nuevo" />
-                                <NavItem to="/profileworker" icon={<IoAddCircleOutline />} label="Perfil" />
-
-                                <NavItem icon={<IoLogOutOutline />} label="Salir" onClick={() => { logout(); navigate('/login'); }} />
-                            </>
-                        )}
-
-                        {usuario?.rol === 'ADMIN_ROLE' && (
-                            <>
-                                <NavItem to="/admin" icon={<IoStatsChartOutline />} label="Panel" />
-                                <NavItem to="/crearworker" icon={<IoStatsChartOutline />} label="Crear Trabajador" />
-                                <NavItem to="/adminmanage" icon={<IoStatsChartOutline />} label="Administracion" />
-                                <NavItem to="/adminprofile" icon={<IoStatsChartOutline />} label="Perfil" />
-                                <NavItem animate={false} badge={0} to={"/login"} icon={<IoLogOutOutline />} label="Salir" onClick={() => { logout(); navigate('/login'); }} />
-                            </>
+                        {(usuario?.rol === 'WORKER_ROLE' || usuario?.rol === 'ADMIN_ROLE') && (
+                             <NavItem 
+                                label="Salir" 
+                                icon={<IoLogOutOutline />} 
+                                onClick={() => { logout(); navigate('/login'); }} 
+                            />
                         )}
                     </>
                 )}
             </div>
 
             <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-
-            {/* Spacers para que el contenido no quede debajo de las barras fijas */}
             <div className="h-20 w-full"></div>
             <div className="h-20 md:hidden w-full"></div>
         </>
