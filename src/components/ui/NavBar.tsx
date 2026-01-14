@@ -16,7 +16,21 @@ import {
     IoReceiptOutline
 } from "react-icons/io5";
 
-const NavItem = ({ to, icon, label, onClick, badge, animate }) => {
+const NavItem = ({
+    to = "",
+    icon,
+    label,
+    onClick = () => { },
+    badge = 0,
+    animate = false
+}: {
+    to?: any,
+    icon?: any,
+    label?: any,
+    onClick?: any,
+    badge?: any,
+    animate?: any
+}) => {
     // Clases actualizadas para resaltar sobre el fondo naranja
     const activeClass = "text-white scale-110 font-bold border-b-2 border-white pb-1";
     const inactiveClass = "text-orange-100 hover:text-white transition-all duration-300";
@@ -88,9 +102,9 @@ export const Navbar = () => {
                     <div className="hidden md:flex items-center gap-6">
                         {status !== 'authenticated' ? (
                             <>
-                                <NavItem  onClick={false} badge={0} to={false} animate={false} icon={<IoHomeOutline />} label="Inicio" />
-                                <NavItem  onClick={false} badge={0} to={false} animate={false} to="/login" icon={<IoLogInOutline />} label="Ingresar" />
-                                <NavLink  to="/register" className="bg-white text-orange-500 px-6 py-2 rounded-full font-black hover:bg-orange-50 transition-all text-xs uppercase shadow-sm">
+                                <NavItem to="/" animate={false} icon={<IoHomeOutline />} label="Inicio" />
+                                <NavItem to="/login" icon={<IoLogInOutline />} label="Ingresar" />
+                                <NavLink to="/register" className="bg-white text-orange-500 px-6 py-2 rounded-full font-black hover:bg-orange-50 transition-all text-xs uppercase shadow-sm">
                                     Registrarse
                                 </NavLink>
                             </>
@@ -181,11 +195,11 @@ export const Navbar = () => {
 
                         {usuario?.rol === 'ADMIN_ROLE' && (
                             <>
-                                <NavItem  to="/admin" icon={<IoStatsChartOutline />} label="Panel" />
-                                <NavItem  to="/crearworker" icon={<IoStatsChartOutline />} label="Crear Trabajador" />
-                                <NavItem  to="/adminmanage" icon={<IoStatsChartOutline />} label="Administracion" />
-                                <NavItem  to="/adminprofile" icon={<IoStatsChartOutline />} label="Perfil" />
-                                <NavItem animate={false} badge={0} to={"/login"}  icon={<IoLogOutOutline />} label="Salir" onClick={() => { logout(); navigate('/login'); }} />
+                                <NavItem to="/admin" icon={<IoStatsChartOutline />} label="Panel" />
+                                <NavItem to="/crearworker" icon={<IoStatsChartOutline />} label="Crear Trabajador" />
+                                <NavItem to="/adminmanage" icon={<IoStatsChartOutline />} label="Administracion" />
+                                <NavItem to="/adminprofile" icon={<IoStatsChartOutline />} label="Perfil" />
+                                <NavItem animate={false} badge={0} to={"/login"} icon={<IoLogOutOutline />} label="Salir" onClick={() => { logout(); navigate('/login'); }} />
                             </>
                         )}
                     </>
