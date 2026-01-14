@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { IoFastFoodOutline, IoCartOutline, IoFlame } from "react-icons/io5";
+import  { useEffect, useState, useContext } from 'react';
+import { IoFastFoodOutline, IoCartOutline } from "react-icons/io5";
 import SomosNaturales from '../../api/somosNaturalesApi';
 import { CartContext } from '../../context/CartContext';
 

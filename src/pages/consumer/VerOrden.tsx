@@ -78,7 +78,7 @@ export const MisPedidos = () => {
                                         </h3>
 
                                         <div className="grid gap-4">
-                                            {pedido.productos.map(item => (
+                                            {pedido.productos.map((item: any) => (
                                                 <div
                                                     key={item.producto._id}
                                                     className="group flex flex-col md:flex-row md:items-center justify-between p-5 bg-white rounded-[2rem] border-2 border-gray-50 shadow-sm hover:shadow-md hover:border-orange-100 transition-all duration-300"

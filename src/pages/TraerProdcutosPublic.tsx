@@ -1,11 +1,9 @@
-import { useEffect, useState, useContext } from 'react';
-import { IoCartOutline, IoFastFoodSharp, IoSearchSharp } from 'react-icons/io5';
+import { useEffect, useState } from 'react';
+import { IoFastFoodSharp } from 'react-icons/io5';
 import SomosNaturales from '../../src/api/somosNaturalesApi';
-import { CartContext } from '../../src/context/CartContext';
 import type { Producto } from '../../src/interfaces/ProductInterfaces';
 
 export const CatalogoPublico = () => {
-    const { addToCart } = useContext(CartContext);
     const [productos, setProductos] = useState<Producto[]>([]);
     const [loading, setLoading] = useState(true);
 
