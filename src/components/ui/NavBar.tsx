@@ -181,11 +181,11 @@ export const Navbar = () => {
 
                         {usuario?.rol === 'ADMIN_ROLE' && (
                             <>
-                                <NavItem to="/admin" icon={<IoStatsChartOutline />} label="Panel" />
-                                <NavItem to="/crearworker" icon={<IoStatsChartOutline />} label="Crear Trabajador" />
-                                <NavItem to="/adminmanage" icon={<IoStatsChartOutline />} label="Administracion" />
-                                <NavItem to="/adminprofile" icon={<IoStatsChartOutline />} label="Perfil" />
-                                <NavItem badge={0} to={""} animate={false} icon={<IoLogOutOutline />} label="Salir" to: ''onClick={() => { logout(); navigate('/login'); }} />
+                                <NavItem  to="/admin" icon={<IoStatsChartOutline />} label="Panel" />
+                                <NavItem  to="/crearworker" icon={<IoStatsChartOutline />} label="Crear Trabajador" />
+                                <NavItem  to="/adminmanage" icon={<IoStatsChartOutline />} label="Administracion" />
+                                <NavItem  to="/adminprofile" icon={<IoStatsChartOutline />} label="Perfil" />
+                                <NavItem animate={false} badge={0} to={"/login"}  icon={<IoLogOutOutline />} label="Salir" onClick={() => { logout(); navigate('/login'); }} />
                             </>
                         )}
                     </>
