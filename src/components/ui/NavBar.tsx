@@ -15,23 +15,14 @@ import {
     IoAddCircleOutline,
     IoReceiptOutline
 } from "react-icons/io5";
-
-const NavItem = ({
-    to = "",
-    icon,
-    label,
-    onClick = () => { },
-    badge = 0,
-    animate = false
-}: {
-    to?: string,
-    icon: React.ReactNode,
-    label: string,
-    onClick?: () => void,
-    badge?: number,
-    animate?: boolean
-}) => {
-    // Clases actualizadas para resaltar sobre el fondo naranja
+const NavItem = ({ 
+    to = "", 
+    icon, 
+    label, 
+    onClick = () => {}, 
+    badge = 0, 
+    animate = false 
+}: any) => {
     const activeClass = "text-white scale-110 font-bold border-b-2 border-white pb-1";
     const inactiveClass = "text-orange-100 hover:text-white transition-all duration-300";
 
