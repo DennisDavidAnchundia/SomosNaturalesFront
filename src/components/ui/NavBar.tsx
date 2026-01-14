@@ -88,9 +88,9 @@ export const Navbar = () => {
                     <div className="hidden md:flex items-center gap-6">
                         {status !== 'authenticated' ? (
                             <>
-                                <NavItem to="/" icon={<IoHomeOutline />} label="Inicio" />
-                                <NavItem to="/login" icon={<IoLogInOutline />} label="Ingresar" />
-                                <NavLink to="/register" className="bg-white text-orange-500 px-6 py-2 rounded-full font-black hover:bg-orange-50 transition-all text-xs uppercase shadow-sm">
+                                <NavItem  onClick={false} badge={0} to={false} animate={false} icon={<IoHomeOutline />} label="Inicio" />
+                                <NavItem  onClick={false} badge={0} to={false} animate={false} to="/login" icon={<IoLogInOutline />} label="Ingresar" />
+                                <NavLink  to="/register" className="bg-white text-orange-500 px-6 py-2 rounded-full font-black hover:bg-orange-50 transition-all text-xs uppercase shadow-sm">
                                     Registrarse
                                 </NavLink>
                             </>
