@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import SomosNaturales from '../../api/somosNaturalesApi';
-import { IoCashOutline, IoCartOutline, IoTrendingUp, IoBagCheckSharp, IoFlash, IoAlertCircleOutline } from 'react-icons/io5';
+import { IoCashOutline, IoCartOutline, IoTrendingUp, IoFlash, IoAlertCircleOutline } from 'react-icons/io5';
 
 export const StoreAnalytics = () => {
     const [data, setData] = useState<any>(null);

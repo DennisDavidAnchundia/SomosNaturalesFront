@@ -1,12 +1,10 @@
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import SomosNaturales from '../../api/somosNaturalesApi';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { AuthContext } from '../../context/AuthProvider';
-import { IoLogoGoogle, IoShieldCheckmarkOutline } from 'react-icons/io5';
+import {  IoShieldCheckmarkOutline } from 'react-icons/io5';
 
 export const GoogleLogin = () => {
-    const { login } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleCredentialResponse = async (response: any) => {
@@ -14,7 +12,6 @@ export const GoogleLogin = () => {
             const resp = await SomosNaturales.post('/auth/google', { id_token: response.credential });
             
             localStorage.setItem('x-token', resp.data.token);
-            login(resp.data.usuario); 
 
             await Swal.fire({
                 icon: 'success',

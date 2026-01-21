@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthProvider";
-import { IoStar, IoStarSharp } from "react-icons/io5"; // Cambiamos a Sharp para un look más sólido
+import {  IoStarSharp } from "react-icons/io5"; // Cambiamos a Sharp para un look más sólido
 import Swal from "sweetalert2";
 import SomosNaturales from "../../api/somosNaturalesApi";
 

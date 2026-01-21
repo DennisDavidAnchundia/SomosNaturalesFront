@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IoBookOutline, IoBicycleOutline, IoLocationSharp, IoArrowForward, IoSearch, IoCheckmarkCircle } from "react-icons/io5";
+import { IoBookOutline, IoBicycleOutline, IoLocationSharp, IoSearch, IoCheckmarkCircle } from "react-icons/io5";
 import Swal from 'sweetalert2';
 
 // DICCIONARIO MASIVO DE MANTA (Barrios, Parroquias y Zonas)

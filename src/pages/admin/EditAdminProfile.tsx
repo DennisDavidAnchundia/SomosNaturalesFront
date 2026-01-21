@@ -4,7 +4,7 @@ import SomosNaturales from '../../api/somosNaturalesApi';
 import Swal from 'sweetalert2';
 import { 
     IoPersonOutline, IoMailOutline, IoKeyOutline, 
-    IoShieldCheckmarkSharp, IoCloudUploadOutline, IoSaveOutline 
+    IoShieldCheckmarkSharp, IoSaveOutline 
 } from 'react-icons/io5';
 
 export const AdminProfile = () => {

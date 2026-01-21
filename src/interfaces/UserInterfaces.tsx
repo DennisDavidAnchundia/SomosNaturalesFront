@@ -13,6 +13,6 @@ export interface AuthContextType {
     usuario: Usuario | null;
     token: string | null;
     status: 'checking' | 'authenticated' | 'not-authenticated';
-    login: (user: Usuario, token: string) => void;
+    login: (user: Usuario ) => void;
     logout: () => void;
 }

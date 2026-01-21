@@ -1,14 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { MasVendidos } from './consumer/Masvendidos';
 import { MejorRating } from './consumer/MejorRaiting';
-import { CatalogoPage } from './consumer/CatalogoPage';
 import { CatalogoPublico } from './TraerProdcutosPublic';
 import { SelectorServicio } from './consumer/BuscadorDomicilio';
 
 export const HomePage = () => {
-    const [productos, setProductos] = useState<any[]>([]); 
-    const navigate = useNavigate();
 
     return (
         <div className="bg-white min-h-screen">
