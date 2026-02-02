@@ -35,7 +35,9 @@ const onSubmit = async (e: React.FormEvent) => {
                 title: '¡Trabajador Creado!',
                 text: `La cuenta de ${resp.data.usuario.nombre} está lista.`,
                 icon: 'success',
-                confirmButtonColor: '#f97316'
+                confirmButtonColor: '#f97326'
+
+
             });
             
             setFormData({ nombre: '', correo: '', password: '', rol: 'WORKER_ROLE' });
