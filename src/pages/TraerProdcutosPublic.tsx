@@ -11,6 +11,7 @@ export const CatalogoPublico = () => {
         const cargarProductos = async () => {
             try {
                 const { data } = await SomosNaturales.get('/producto/TraerProductosHomePublic');
+                console.log(data)
                 setProductos(data.productos);
             } catch (error) {
                 console.error("Error al cargar el catálogo público", error);
