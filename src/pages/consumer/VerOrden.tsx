@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import SomosNaturales from '../../api/somosNaturalesApi';
-import { IoReceiptOutline, IoTimeOutline, IoCheckmarkCircle, IoFastFoodOutline, IoBicycleOutline } from "react-icons/io5";
+import { IoReceiptOutline, IoTimeOutline, IoCheckmarkCircle, IoFastFoodOutline, IoBicycleOutline, IoWalletOutline, IoCheckmarkDoneOutline } from "react-icons/io5";
 import { RatingInput } from './RatingInput';
 
 export const MisPedidos = () => {
@@ -29,7 +29,8 @@ export const MisPedidos = () => {
             case 'PENDIENTE': return 'bg-yellow-100 text-yellow-700 border-yellow-200';
             case 'EN_PREPARACION': return 'bg-blue-100 text-blue-700 border-blue-200';
             case 'LISTO': return 'bg-green-100 text-green-700 border-green-200';
-            case 'ENTREGADO': return 'bg-gray-100 text-gray-700 border-gray-200';
+            case 'EN_CAMINO': return 'bg-orange-100 text-orange-700 border-orange-200'; // Nuevo
+            case 'ENTREGADO': return 'bg-purple-100 text-purple-700 border-purple-200'; // Cambié a púrpura para diferenciar
             default: return 'bg-gray-100 text-gray-600';
         }
     };
@@ -68,45 +69,11 @@ export const MisPedidos = () => {
                 ) : (
                     <div className="space-y-8">
                         {pedidos.map(pedido => (
-                            <div key={pedido._id} className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden transform transition-all hover:scale-[1.01]">
-                                {pedido.estado === 'ENTREGADO' && (
-                                    <div className="mt-8">
-                                        {/* Título de la sección con estilo de marca */}
-                                        <h3 className="text-xl font-black text-gray-800 uppercase italic tracking-tighter mb-6 flex items-center gap-2">
-                                            <span className="bg-orange-500 w-2 h-6 rounded-full"></span>
-                                            ¿Qué te pareció tu comida?
-                                        </h3>
 
-                                        <div className="grid gap-4">
-                                            {pedido.productos.map((item: any) => (
-                                                <div
-                                                    key={item.producto._id}
-                                                    className="group flex flex-col md:flex-row md:items-center justify-between p-5 bg-white rounded-[2rem] border-2 border-gray-50 shadow-sm hover:shadow-md hover:border-orange-100 transition-all duration-300"
-                                                >
-                                                    {/* Nombre del Producto con estilo fuerte */}
-                                                    <div className="flex flex-col">
-                                                        <span className="text-[10px] font-black text-orange-500 uppercase tracking-widest mb-1 italic">
-                                                            Producto para evaluar:
-                                                        </span>
-                                                        <span className="text-lg font-black text-gray-800 uppercase italic tracking-tighter group-hover:text-orange-600 transition-colors">
-                                                            {item.producto.nombre}
-                                                        </span>
-                                                    </div>
+                            <div key={pedido._id} className="bg-white rounded-[2.5rem] shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden transform transition-all hover:scale-[1.01] mb-8">
 
-                                                    {/* Separador visual para móvil */}
-                                                    <div className="h-px w-full bg-gray-100 my-3 md:hidden"></div>
-
-                                                    {/* Input de Estrellas */}
-                                                    <div className="bg-gray-50 px-4 py-2 rounded-2xl border border-gray-100 group-hover:bg-orange-50 transition-colors">
-                                                        <RatingInput producto={item.producto} />
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                                {/* Header del Pedido */}
-                                <div className="p-6 border-b border-gray-50 flex flex-wrap justify-between items-center gap-4">
+                                {/* 1. Header del Pedido */}
+                                <div className="p-6 border-b border-gray-50 flex flex-wrap justify-between items-center gap-4 bg-gray-50/50">
                                     <div className="flex items-center gap-3">
                                         <div className="text-gray-400"><IoTimeOutline size={20} /></div>
                                         <span className="font-black text-gray-800 text-sm uppercase">
@@ -118,7 +85,7 @@ export const MisPedidos = () => {
                                     </span>
                                 </div>
 
-                                {/* Cuerpo: Productos */}
+                                {/* 2. Cuerpo: Productos y Total */}
                                 <div className="p-6 md:p-8">
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                         <div className="space-y-3">
@@ -134,7 +101,7 @@ export const MisPedidos = () => {
                                             ))}
                                         </div>
 
-                                        <div className="bg-yellow-50 rounded-[2rem] p-6 flex flex-col justify-center">
+                                        <div className="bg-yellow-50 rounded-[2rem] p-6 flex flex-col justify-center border border-yellow-100">
                                             <p className="text-[10px] font-black text-yellow-700 uppercase tracking-widest mb-2 text-center">Resumen de Pago</p>
                                             <div className="flex justify-between items-center text-2xl font-black text-gray-800 tracking-tighter">
                                                 <span>TOTAL:</span>
@@ -146,34 +113,63 @@ export const MisPedidos = () => {
                                         </div>
                                     </div>
 
-                                    {/* Barra de progreso visual (Stepper) */}
-                                    <div className="mt-10 pt-6 border-t border-gray-100">
-                                        <div className="flex justify-between relative">
-                                            {/* Línea de fondo */}
-                                            <div className="absolute top-5 left-0 w-full h-1 bg-gray-100 -z-0"></div>
+                                    {/* 3. Stepper (Barra de progreso) */}
+                                    <div className="mt-10 mb-6 py-6 border-t border-gray-100 overflow-visible"> {/* Asegúrate que diga overflow-visible */}
+                                        <div className="flex justify-between items-start relative w-full"> {/* items-start ayuda con el alineado */}
+
+                                            {/* Línea de fondo: ajustamos el ancho al 80% para que no sobresalga de los extremos */}
+                                            <div className="absolute top-5 left-[10%] w-[80%] h-0.5 bg-gray-100 -z-0"></div>
 
                                             <StepItem
                                                 icon={<IoReceiptOutline />}
                                                 label="Recibido"
-                                                active={['PENDIENTE', 'EN_PREPARACION', 'LISTO', 'ENTREGADO'].includes(pedido.estado)}
+                                                active={['PENDIENTE', 'EN_PREPARACION', 'LISTO', 'EN_CAMINO', 'ENTREGADO'].includes(pedido.estado)}
                                             />
                                             <StepItem
                                                 icon={<IoFastFoodOutline />}
                                                 label="En Cocina"
-                                                active={['EN_PREPARACION', 'LISTO', 'ENTREGADO'].includes(pedido.estado)}
+                                                active={['EN_PREPARACION', 'LISTO', 'EN_CAMINO', 'ENTREGADO'].includes(pedido.estado)}
                                             />
                                             <StepItem
                                                 icon={<IoCheckmarkCircle />}
                                                 label="¡Listo!"
-                                                active={['LISTO', 'ENTREGADO'].includes(pedido.estado)}
+                                                active={['LISTO', 'EN_CAMINO', 'ENTREGADO'].includes(pedido.estado)}
                                             />
                                             <StepItem
                                                 icon={<IoBicycleOutline />}
+                                                label="En camino"
+                                                active={['EN_CAMINO', 'ENTREGADO', 'PAGADO'].includes(pedido.estado)}
+                                            />
+                                            <StepItem
+                                                icon={<IoCheckmarkDoneOutline />}
                                                 label="Entregado"
-                                                active={['ENTREGADO'].includes(pedido.estado)}
+                                                active={['ENTREGADO', 'PAGADO'].includes(pedido.estado)}
+                                            />
+                                            <StepItem
+                                                icon={<IoWalletOutline />}
+                                                label="Pagado"
+                                                active={pedido.estado === 'PAGADO'}
                                             />
                                         </div>
                                     </div>
+
+                                    {/* 4. Sección de Calificación (Solo si está ENTREGADO) */}
+                                    {pedido.estado === 'ENTREGADO' && (
+                                        <div className="mt-8 pt-8 border-t-2 border-dashed border-gray-100">
+                                            <h3 className="text-lg font-black text-gray-800 uppercase italic tracking-tighter mb-4 flex items-center gap-2">
+                                                <span className="bg-orange-500 w-2 h-5 rounded-full"></span>
+                                                Califica tu experiencia
+                                            </h3>
+                                            <div className="grid gap-3">
+                                                {pedido.productos.map((item: any) => (
+                                                    <div key={item.producto._id} className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-orange-50/30 rounded-2xl border border-orange-100">
+                                                        <span className="font-bold text-gray-700 text-sm">{item.producto.nombre}</span>
+                                                        <RatingInput producto={item.producto} />
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         ))}
@@ -186,11 +182,15 @@ export const MisPedidos = () => {
 
 // Subcomponente para los pasos del stepper
 const StepItem = ({ icon, label, active }: { icon: any, label: string, active: boolean }) => (
-    <div className="flex flex-col items-center relative z-10 w-1/4 text-center">
-        <div className={`w-10 h-10 rounded-full flex items-center justify-center text-xl transition-all duration-500 shadow-md ${active ? 'bg-red-600 text-white scale-110 shadow-red-200' : 'bg-white text-gray-300 border-2 border-gray-100'}`}>
+    <div className="flex flex-col items-center relative z-10 flex-1 px-1"> {/* flex-1 en lugar de w-1/5 */}
+        <div className={`w-9 h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center text-lg md:text-xl transition-all duration-500 shadow-md ${active
+            ? 'bg-red-600 text-white scale-110 shadow-red-200'
+            : 'bg-white text-gray-300 border-2 border-gray-100'
+            }`}>
             {icon}
         </div>
-        <span className={`text-[9px] font-black uppercase mt-3 tracking-tighter ${active ? 'text-red-600' : 'text-gray-300'}`}>
+        <span className={`text-[7px] md:text-[9px] font-black uppercase mt-3 tracking-tighter leading-none text-center ${active ? 'text-red-600' : 'text-gray-400'
+            }`}>
             {label}
         </span>
     </div>

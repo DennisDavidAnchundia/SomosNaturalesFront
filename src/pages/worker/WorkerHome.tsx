@@ -18,7 +18,7 @@ export const WorkerPanel = () => {
     const cambiarEstado = async (id: string, nuevoEstado: string) => {
         try {
             await SomosNaturales.put(`/orden/${id}`, { estado: nuevoEstado });
-            
+
             Swal.fire({
                 title: 'Estado Actualizado',
                 text: `Pedido movido a ${nuevoEstado.replace('_', ' ')}`,
@@ -28,7 +28,7 @@ export const WorkerPanel = () => {
                 showConfirmButton: false,
                 timer: 3000
             });
-            
+
             fetchOrdenes();
         } catch (error) {
             Swal.fire('Error', 'No se pudo actualizar el estado', 'error');
@@ -37,7 +37,7 @@ export const WorkerPanel = () => {
 
     useEffect(() => {
         fetchOrdenes();
-        const interval = setInterval(fetchOrdenes, 10000); 
+        const interval = setInterval(fetchOrdenes, 10000);
         return () => clearInterval(interval);
     }, []);
 
@@ -60,7 +60,7 @@ export const WorkerPanel = () => {
                         <p className="text-gray-500 font-bold text-[10px] uppercase tracking-[0.2em]">Monitoreo en tiempo real</p>
                     </div>
                 </div>
-                
+
                 <div className="flex gap-3 text-xs font-black uppercase tracking-tighter text-white">
                     <div className="bg-yellow-500 px-4 py-2 rounded-xl shadow-lg">Pendientes: {ordenes.filter(o => o.estado === 'PENDIENTE').length}</div>
                     <div className="bg-blue-500 px-4 py-2 rounded-xl shadow-lg">En Fuego: {ordenes.filter(o => o.estado === 'EN_PREPARACION').length}</div>
@@ -70,13 +70,12 @@ export const WorkerPanel = () => {
             {/* Grid de Tickets */}
             <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {ordenesActivas.map(orden => (
-                    <div 
-                        key={orden._id} 
-                        className={`relative bg-white rounded-[2rem] shadow-xl overflow-hidden border-t-8 transition-all ${
-                            orden.estado === 'PENDIENTE' ? 'border-yellow-400' : 
-                            orden.estado === 'EN_PREPARACION' ? 'border-blue-500' : 
-                            orden.estado === 'LISTO' ? 'border-green-500' : 'border-gray-300'
-                        }`}
+                    <div
+                        key={orden._id}
+                        className={`relative bg-white rounded-[2rem] shadow-xl overflow-hidden border-t-8 transition-all ${orden.estado === 'PENDIENTE' ? 'border-yellow-400' :
+                            orden.estado === 'EN_PREPARACION' ? 'border-blue-500' :
+                                orden.estado === 'LISTO' ? 'border-green-500' : 'border-gray-300'
+                            }`}
                     >
                         {/* Contenido del Ticket */}
                         <div className="p-6">
@@ -126,38 +125,54 @@ export const WorkerPanel = () => {
                             {/* Acciones */}
                             <div className="grid grid-cols-2 gap-2">
                                 {orden.estado === 'PENDIENTE' && (
-                                    <button 
+                                    <button
                                         className="col-span-2 bg-yellow-400 hover:bg-yellow-500 text-black font-black py-3 rounded-xl transition-all flex items-center justify-center gap-2 uppercase text-xs"
                                         onClick={() => cambiarEstado(orden._id, 'EN_PREPARACION')}
                                     >
-                                        <IoTimerOutline size={18}/> Iniciar Preparación
+                                        <IoTimerOutline size={18} /> Iniciar Preparación
                                     </button>
                                 )}
 
                                 {orden.estado === 'EN_PREPARACION' && (
-                                    <button 
+                                    <button
                                         className="col-span-2 bg-blue-500 hover:bg-blue-600 text-white font-black py-3 rounded-xl transition-all flex items-center justify-center gap-2 uppercase text-xs shadow-lg shadow-blue-100"
                                         onClick={() => cambiarEstado(orden._id, 'LISTO')}
                                     >
-                                        <IoCheckmarkDoneOutline size={18}/> ¡Comida Lista!
+                                        <IoCheckmarkDoneOutline size={18} /> ¡Comida Lista!
                                     </button>
                                 )}
 
                                 {orden.estado === 'LISTO' && (
-                                    <button 
-                                        className="col-span-2 bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl transition-all flex items-center justify-center gap-2 uppercase text-xs shadow-lg shadow-green-100"
-                                        onClick={() => cambiarEstado(orden._id, 'ENTREGADO')}
+                                    <button
+                                        className="col-span-2 bg-orange-500 hover:bg-orange-600 text-white font-black py-3 rounded-xl transition-all flex items-center justify-center gap-2 uppercase text-xs shadow-lg shadow-orange-100"
+                                        onClick={() => cambiarEstado(orden._id, 'EN_CAMINO')}
                                     >
-                                        <IoBicycleOutline size={18}/> Confirmar Entrega
+                                        <IoBicycleOutline size={18} /> Comida en camino
                                     </button>
                                 )}
-
-                                {orden.estado !== 'ENTREGADO' && (
-                                    <button 
-                                        className="col-span-2 border-2 border-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-400 font-black py-2 rounded-xl transition-all flex items-center justify-center gap-2 uppercase text-[10px]"
+                                {orden.estado === 'EN_CAMINO' && (
+                                    <button
+                                        className="col-span-2 bg-purple-600 hover:bg-purple-700 text-white font-black py-3 rounded-xl transition-all flex items-center justify-center gap-2 uppercase text-xs shadow-lg"
+                                        onClick={() => cambiarEstado(orden._id, 'ENTREGADO')}
+                                    >
+                                        <IoCheckmarkDoneOutline size={18} /> Confirmar Entrega
+                                    </button>
+                                )}
+                                {orden.estado === 'ENTREGADO' && (
+                                    <button
+                                        className="col-span-2 bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl transition-all flex items-center justify-center gap-2 uppercase text-xs shadow-lg animate-pulse"
+                                        onClick={() => cambiarEstado(orden._id, 'PAGADO')}
+                                    >
+                                        <IoWalletOutline size={18} /> Confirmar Pago Recibido
+                                    </button>
+                                )}
+                                {/* Modificamos la condición de cancelar para que no se pueda cancelar si ya está pagado */}
+                                {orden.estado !== 'PAGADO' && (
+                                    <button
+                                        className="col-span-2 border-2 border-gray-100 hover:bg-red-50 hover:text-red-600 text-gray-400 font-black py-2 rounded-xl mt-2 transition-all flex items-center justify-center gap-2 uppercase text-[10px]"
                                         onClick={() => cambiarEstado(orden._id, 'CANCELADO')}
                                     >
-                                        <IoCloseCircleOutline size={16}/> Cancelar Pedido
+                                        <IoCloseCircleOutline size={16} /> Cancelar Pedido
                                     </button>
                                 )}
                             </div>
