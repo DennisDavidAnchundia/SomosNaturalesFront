@@ -121,6 +121,7 @@ export const Navbar = () => {
                                     <>
                                         <NavItem to="/worker" icon={<IoClipboardOutline />} label="Comandas" />
                                         <NavItem to="/addproducts" icon={<IoAddCircleOutline />} label="Agregar" />
+                                        <NavItem to="/gestionproduct" icon={<IoAddCircleOutline />} label="Gestionar" />
                                         <NavItem to="/profileworker" icon={<IoAddCircleOutline />} label="Perfil" />
                                     </>
                                 )}

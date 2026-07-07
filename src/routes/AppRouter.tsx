@@ -18,6 +18,7 @@ import { UserManagement } from '../pages/admin/AdminManage';
 import { AdminProfile } from '../pages/admin/EditAdminProfile';
 import { WorkerProfile } from '../pages/worker/WorkerProfile';
 import { CustomerProfile } from '../pages/consumer/ConsumerProfile';
+import { GestionProductos } from '../pages/worker/GestionProductos';
 
 // Vistas
 
@@ -71,6 +72,8 @@ export const AppRouter = () => {
                     <Route element={<RoleGuard allowedRoles={['WORKER_ROLE']} />}>
                         <Route path="/worker" element={<WorkerPanel />} />
                         <Route path="/addproducts" element={<CrearProductoForm />} />
+                        <Route path="/gestionproduct" element={<GestionProductos />} />
+                        
                         <Route path="/profileworker" element={<WorkerProfile />} />
                         
                     </Route>
